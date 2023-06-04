@@ -1,0 +1,23 @@
+int SignalPin = 2;
+#define led 13 // Connect the signal pin of IR module to the D2 pin of 
+void setup() {
+ pinMode(SignalPin, INPUT); // Initialize D2 as an INput pin
+ pinMode(led, OUTPUT);
+ Serial.begin(9600); 
+}
+int Object = HIGH;
+void loop() {
+ Object = digitalRead(SignalPin);
+ if (Object == LOW)
+ {
+   digitalWrite(led, LOW);
+ Serial.println("Object Not Found"); // If there is nothing in its path
+ delay(200);
+ }
+ else
+ {
+   digitalWrite(led, HIGH);
+ Serial.println("Obstacle Found"); //If there is obstacle 
+ }
+ delay(100);
+}
