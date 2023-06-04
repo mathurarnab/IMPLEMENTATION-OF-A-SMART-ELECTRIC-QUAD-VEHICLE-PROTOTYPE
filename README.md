@@ -1,5 +1,6 @@
-- 👋 Hi, I’m @mathurarnab
+- 👋 Hi, I’m Arnab Mathur
 - 👀 I’m interested in IOT
+- 👀 I'm warking in a project of IOT
 - 🌱 I’m currently learning AI 
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me call : 6296490568
