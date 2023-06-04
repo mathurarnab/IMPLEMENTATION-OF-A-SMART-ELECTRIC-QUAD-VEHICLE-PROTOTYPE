@@ -12,108 +12,109 @@ int in2 = 9;
 int enB = 3;
 int in3 = 10;
 int in4 = 11;
-void setup() {
-  pinMode(7, OUTPUT);
+void setup()
+{
+   pinMode(7, OUTPUT);
    pinMode(6, OUTPUT);
-    pinMode(5, OUTPUT);
-     pinMode(4, OUTPUT);
-myServo.begin();
-  myServo.setPWMFreq(50);
-	// Set all the motor control pins to outputs
-	pinMode(enA, OUTPUT);
-	pinMode(enB, OUTPUT);
-	pinMode(in1, OUTPUT);
-	pinMode(in2, OUTPUT);
-	pinMode(in3, OUTPUT);
-	pinMode(in4, OUTPUT);
+   pinMode(5, OUTPUT);
+   pinMode(4, OUTPUT);
+   myServo.begin();
+   myServo.setPWMFreq(50);
+   // Set all the motor control pins to outputs
+   pinMode(enA, OUTPUT);
+   pinMode(enB, OUTPUT);
+   pinMode(in1, OUTPUT);
+   pinMode(in2, OUTPUT);
+   pinMode(in3, OUTPUT);
+   pinMode(in4, OUTPUT);
 	
-	// Turn off motors - Initial state
-	digitalWrite(in1, LOW);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, LOW);
+   // Turn off motors - Initial state
+   digitalWrite(in1, LOW);
+   digitalWrite(in2, LOW);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, LOW);
 }
 void forward_for_one_grid()
 {
-myServo.setPWM(8, 0, 320);
-myServo.setPWM(7, 0, 320);  
-analogWrite(enA, 200);
-analogWrite(enB, 200);
-  digitalWrite(in1, LOW);
-	digitalWrite(in2, HIGH);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, HIGH);
-  myServo.setPWM(8, 0, 320);
-myServo.setPWM(7, 0, 320);
-  delay(1500);
-	digitalWrite(in1, LOW);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, LOW);
-  myServo.setPWM(8, 0, 320);
-myServo.setPWM(7, 0, 320);
+   myServo.setPWM(8, 0, 320);
+   myServo.setPWM(7, 0, 320);  
+   analogWrite(enA, 200);
+   analogWrite(enB, 200);
+   digitalWrite(in1, LOW);
+   digitalWrite(in2, HIGH);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, HIGH);
+   myServo.setPWM(8, 0, 320);
+   myServo.setPWM(7, 0, 320);
+   delay(1500);
+   digitalWrite(in1, LOW);
+   digitalWrite(in2, LOW);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, LOW);
+   myServo.setPWM(8, 0, 320);
+   myServo.setPWM(7, 0, 320);
 }
 void backward_for_one_grid()
 {
-  myServo.setPWM(8, 0, 320);
-myServo.setPWM(7, 0, 320);
-analogWrite(enA, 200);
-analogWrite(enB, 200);
-  digitalWrite(in1, HIGH);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, HIGH);
-	digitalWrite(in4, LOW);
-  myServo.setPWM(8, 0, 320);
-myServo.setPWM(7, 0, 320);
-  delay(1500);
-	digitalWrite(in1, LOW);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, LOW);
-  myServo.setPWM(8, 0, 320);
-myServo.setPWM(7, 0, 320);
+   myServo.setPWM(8, 0, 320);
+   myServo.setPWM(7, 0, 320);
+   analogWrite(enA, 200);
+   analogWrite(enB, 200);
+   digitalWrite(in1, HIGH);
+   digitalWrite(in2, LOW);
+   digitalWrite(in3, HIGH);
+   digitalWrite(in4, LOW);
+   myServo.setPWM(8, 0, 320);
+   myServo.setPWM(7, 0, 320);
+   delay(1500);
+   digitalWrite(in1, LOW);
+   digitalWrite(in2, LOW);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, LOW);
+   myServo.setPWM(8, 0, 320);
+   myServo.setPWM(7, 0, 320);
 }
 void left_rotation_on_a_grid()
 {
-analogWrite(enA, 150);
-analogWrite(enB, 150);
-digitalWrite(in1, LOW);
-	digitalWrite(in2, HIGH);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, HIGH);
-  delay(1000);
- plusninty();
-digitalWrite(in2, HIGH);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, HIGH);
-  delay(1000);
-	digitalWrite(in1, LOW);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, LOW);
+   analogWrite(enA, 150);
+   analogWrite(enB, 150);
+   digitalWrite(in1, LOW);
+   digitalWrite(in2, HIGH);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, HIGH);
+   delay(1000);
+   plusninty();
+   digitalWrite(in2, HIGH);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, HIGH);
+   delay(1000);
+   digitalWrite(in1, LOW);
+   digitalWrite(in2, LOW);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, LOW);
 }
 void right_rotation_on_a_grid()
 {
-analogWrite(enA, 150);
-analogWrite(enB, 150);
-digitalWrite(in1, LOW);
-	digitalWrite(in2, HIGH);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, HIGH);
-  delay(1000);
-minusninty();
-digitalWrite(in2, HIGH);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, HIGH);
-  delay(1000);
-	digitalWrite(in1, LOW);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, LOW);
+   analogWrite(enA, 150);
+   analogWrite(enB, 150);
+   digitalWrite(in1, LOW);
+   digitalWrite(in2, HIGH);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, HIGH);
+   delay(1000);
+   minusninty();
+   digitalWrite(in2, HIGH);
+   digitalWrite(in3, LOW);
+   digitalWrite(in4, HIGH);
+   delay(1000);
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW);
 }
 void minusninty()
 {
-  digitalWrite(6,HIGH);
+digitalWrite(6,HIGH);
 digitalWrite(4,HIGH);
 myServo.setPWM(8, 0, 320);
 myServo.setPWM(7, 0, 320);
@@ -495,13 +496,17 @@ digitalWrite(4,LOW);
 }
 void loop()
 {
-on_all_led();
-off_all_led();
-int i;
-for(i=1; i<=1; i++)
-{ forward_for_one_grid(); }
-right_rotation_on_a_grid();
-for(i=1; i<=1; i++)
-{ forward_for_one_grid(); }
-exit(0);
+  on_all_led();
+  off_all_led();
+  int i;
+  for(i=1; i<=1; i++)
+    { 
+      forward_for_one_grid(); 
+    }
+  right_rotation_on_a_grid();
+  for(i=1; i<=1; i++)
+    { 
+      forward_for_one_grid(); 
+     }
+  exit(0);
 }
