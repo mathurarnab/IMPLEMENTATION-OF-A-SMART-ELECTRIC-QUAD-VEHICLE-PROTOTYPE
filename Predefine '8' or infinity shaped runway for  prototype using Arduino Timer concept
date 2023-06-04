@@ -1,0 +1,108 @@
+// Motor A connections
+int enA = 2;
+int in1 = 8;
+int in2 = 9;
+// Motor B connections
+int enB = 3;
+int in3 = 10;
+int in4 = 11;
+float value = 3035;  //Preload timer value (3035 for 4 seconds)
+const char tx = 1;//assign tx with pin 1 (transmit)
+const char rx = 0;//assign rx with pin 0 (receive)
+void setup()
+{
+// Set all the motor control pins to outputs
+pinMode(enA, OUTPUT);
+pinMode(enB, OUTPUT);
+pinMode(in1, OUTPUT);
+pinMode(in2, OUTPUT);
+pinMode(in3, OUTPUT);
+pinMode(in4, OUTPUT);
+	
+// Turn off motors - Initial state
+digitalWrite(in1, LOW);
+digitalWrite(in2, LOW);
+digitalWrite(in3, LOW);
+digitalWrite(in4, LOW);
+pinMode(rx,INPUT);//set rx (or pin 0) as input
+pinMode(tx, OUTPUT);  //set tx (or pin 1) as output
+on_off_motor(0,1);//activate all servo motor channels on SC08A
+noInterrupts(); 
+TCCR1A = 0;
+TCCR1B = 0;
+TCNT1 = value;                        // preload timer
+TCCR1B |= (1 << CS10)|(1 << CS12);    // 1024 prescaler 
+TIMSK1 |= (1 << TOIE1);               // enable timer overflow interrupt ISR
+interrupts();                         // enable all interrupts
+
+}
+
+
+ISR(TIMER1_OVF_vect)                    // interrupt service routine for overflow
+
+{
+
+  TCNT1 = value;                                // preload timer
+
+  servo_control();
+
+}
+void loop()  
+{
+analogWrite(enA, 255);
+analogWrite(enB, 255);
+digitalWrite(in1, HIGH);
+digitalWrite(in2, LOW);
+digitalWrite(in3, HIGH);
+digitalWrite(in4, LOW);
+delay(3500);
+analogWrite(enA, 255);
+analogWrite(enB, 255);
+delay(20000);
+}
+void servo_control()
+{
+ set_ch_pos_spd(1, 1500, 50); 
+set_ch_pos_spd(8, 1000, 50);
+}
+void on_off_motor(unsigned char channel, unsigned char on)
+{
+ unsigned char first_byte = 0;
+   first_byte = 0b11000000 | channel;
+}
+void set_ch_pos_spd(unsigned char channel, unsigned int position, unsigned char velocity)
+{
+   unsigned char first_byte = 0;
+   unsigned char high_byte = 0;
+   unsigned char low_byte = 0;
+   first_byte = 0b11100000 | channel; //make up the 1st byte
+   high_byte = (position >> 6) & 0b01111111; //obtain the high byte of 13 bits position value
+   low_byte = position & 0b00111111; //obtain the low byte of 13 bits position value
+   Serial.write(first_byte); //send the 1st byte
+}
+unsigned int rd_current_pos(unsigned char channel)
+{
+   unsigned char first_byte = 0;
+   unsigned char high_byte = 0;
+   unsigned char low_byte = 0;
+   unsigned int reading_position = 0;
+   unsigned char buffer[2];
+ 
+   first_byte =  0b10100000 | channel;
+   high_byte = buffer[0];
+   low_byte = buffer[1];
+   reading_position = high_byte;
+   reading_position = high_byte<<6;
+   reading_position = reading_position | low_byte;
+   return reading_position; //return position value to the main
+}
+
+void initial_position(unsigned char channel, unsigned int position) //optional, if used, the RX pin of Arduino Mainboard should be connected to TX pin of SC08A
+{ unsigned char first_byte = 0;
+  unsigned char high_byte = 0;
+  unsigned char low_byte = 0;
+  first_byte = 0b10000000 | channel; //make up the 1st byte
+  high_byte = (position >> 6) & 0b01111111; //make up the high byte
+  low_byte = position & 0b00111111;//make up the low byte
+}
+
